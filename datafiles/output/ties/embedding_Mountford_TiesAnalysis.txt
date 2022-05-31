@@ -1,0 +1,9 @@
+Ties: 42
+Solved by inheritance: 42
+Unsolvable by inheritance: 0
+Solved by CC: 22
+Solved by RC: 20
+Solved by RCR: 20
+Unsolvable by static: 8
+Unsolvable by both methods: 0
+

@@ -1,0 +1,9 @@
+Ties: 0
+Solved by inheritance: 0
+Unsolvable by inheritance: 0
+Solved by CC: 0
+Solved by RC: 0
+Solved by RCR: 0
+Unsolvable by static: 0
+Unsolvable by both methods: 0
+
