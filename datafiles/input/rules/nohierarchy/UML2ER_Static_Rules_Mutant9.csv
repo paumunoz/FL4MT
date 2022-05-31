@@ -1,0 +1,6 @@
+Rule\Footprint,SrcNamedElement,SrcNamedElement.name,SrcProperty,SrcProperty.primitiveType,SrcProperty.isContainment,SrcProperty.name,SrcProperty.complexType,SrcPackage,SrcPackage.name,SrcPackage.ownedElements,SrcClass,SrcClass.name,SrcClass.ownedProperty,SrcClass.superClasses,TrgElement,TrgElement.name,TrgFeature,TrgFeature.name,TrgAttribute,TrgAttribute.name,TrgAttribute.type,TrgReference,TrgReference.name,TrgReference.type,TrgWeakReference,TrgWeakReference.name,TrgWeakReference.type,TrgStrongReference,TrgStrongReference.name,TrgStrongReference.type,TrgERModel,TrgERModel.name,TrgERModel.entities,TrgEntityType,TrgEntityType.name,TrgEntityType.features
+Package,0.5,0.5,,,,,,1,1,1,,,,,0.5,1,,,,,,,,,,,,,,,1,1,1,,,
+Class,0.333333333,0.5,,,,,,,,,1,1,1,,0.5,1,,,,,,,,,,,,,,,,,,1,1,1
+Attributes,0.25,0.5,1,1,,1,1,,,,,,,,0.5,1,1,1,1,1,1,,,,,,,,,,,,,,,
+WeakReferences,0.25,0.5,1,1,1,1,1,,,,,,,,0.5,1,1,1,,,,1,1,1,1,1,,,,,,,,,,
+StrongReferences,0.25,0.5,1,,1,1,1,,,,,,,,0.5,1,1,1,,,,1,1,1,,,,1,1,,,,,,,

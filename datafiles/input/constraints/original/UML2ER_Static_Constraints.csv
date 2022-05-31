@@ -1,0 +1,15 @@
+Contract\Footprint,SrcNamedElement,SrcNamedElement.name,SrcProperty,SrcProperty.primitiveType,SrcProperty.isContainment,SrcProperty.name,SrcProperty.complexType,SrcPackage,SrcPackage.name,SrcPackage.ownedElements,SrcClass,SrcClass.name,SrcClass.ownedProperty,SrcClass.superClasses,TrgElement,TrgElement.name,TrgFeature,TrgFeature.name,TrgAttribute,TrgAttribute.name,TrgAttribute.type,TrgReference,TrgReference.name,TrgReference.type,TrgWeakReference,TrgWeakReference.name,TrgWeakReference.type,TrgStrongReference,TrgStrongReference.name,TrgStrongReference.type,TrgERModel,TrgERModel.name,TrgERModel.entities,TrgEntityType,TrgEntityType.name,TrgEntityType.features
+OCL1,0.5,0.5,,,,,,1,1,,,,,,0.5,0.5,,,,,,,,,,,,,,,1,1,,,,
+OCL2,0.5,0.5,,,,,,1,,1,1,1,,,0.5,0.5,,,,,,,,,,,,,,,,,1,1,1,
+OCL3,0.5,0.5,1,,,1,,,,,1,,1,,0.5,0.5,1,1,,,,,,,,,,,,,,,,1,,1
+OCL4,1,,,,,,,,,,,,,,1,,,,,,,,,,,,,,,,,,,,,
+OCL5,0.5,,,,,,,1,,,,,,,0.5,,,,,,,,,,,,,,,,1,,,,,
+OCL6,0.333333333,,,,,,,,,,1,,,,0.5,,,,,,,,,,,,,,,,,,,1,,
+OCL7,0.25,,1,,,,,,,,,,,,0.5,,1,,,,,,,,,,,,,,,,,,,
+OCL8,0.25,0.5,1,,,1,1,,,,1,,1,,0.5,0.5,1,,1,1,,,,,,,,,,,,,,1,,1
+OCL9,0.25,0.5,1,,1,1,1,,,,,,,,0.5,0.5,1,,,,,,,,1,1,,,,,,,,1,,1
+OCL10,0.25,0.5,1,,1,1,1,,,,,,,,0.5,0.5,1,,,,,,,,,,,1,1,,,,,1,,1
+OCL11,0.25,0.5,1,,,1,1,,,,1,,1,,0.5,0.5,1,,1,1,,,,,,,,,,,,,,1,,1
+OCL12,0.25,,1,1,,,1,,,,,,,,0.5,,1,,1,,1,,,,,,,,,,,,,1,,1
+OCL13,0.333333333,0.5,,,,,,,,,1,1,,,0.5,,,,,,,,,,1,,1,,,,,,,,,
+OCL14,0.333333333,0.5,,,,,,,,,1,1,,,0.5,,,,,,,,,,,,,1,,1,,,,,,

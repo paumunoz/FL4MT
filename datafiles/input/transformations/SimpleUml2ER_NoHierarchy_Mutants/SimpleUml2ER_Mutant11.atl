@@ -1,0 +1,128 @@
+module UML2ER_Mutant11;
+create OUT : ER, TM : TMM from IN : SimpleUML;
+
+helper def : trace : TMM!Trace = OclUndefined;
+
+entrypoint rule createTrace()
+{
+	to
+		tr : TMM!Trace( )
+	
+	do {
+		thisModule.trace <- tr;
+	}	
+}
+
+--abstract rule NamedElement{ 
+-- from s : SimpleUML!NamedElement
+-- to   t : ER!Element(
+-- 	name <- s.name
+--	)
+--}
+
+--rule Package extends NamedElement{
+rule Package{	
+  from s: SimpleUML!Package
+  to t: ER!ERModel(
+  		name <- s.name,
+        entities <- s.ownedElements
+	),
+	-- trace information
+	tl : TMM!TraceLink(
+		ruleName <- 'Package',
+		targetElements <- Sequence{t}
+	)
+  do {
+	-- trace information
+	tl.sourceElements <- Sequence{s};
+	thisModule.trace.traceLinks <- tl;
+  }
+}
+
+--rule Class extends NamedElement{
+rule Class{
+  from s: SimpleUML!Class
+  to t: ER!EntityType (
+  	 name <- s.name,
+     features <- s.ownedProperty 
+	 ),
+	-- trace information
+	tl : TMM!TraceLink(
+		ruleName <- 'Class',
+		targetElements <- Sequence{t}
+	)
+  do {
+	-- trace information
+	tl.sourceElements <- Sequence{s};
+	thisModule.trace.traceLinks <- tl;
+  }
+}
+
+--abstract rule Property extends NamedElement{
+--  from s: SimpleUML!Property
+--  to t: ER!Feature ()
+--}
+
+--rule Attributes extends Property{
+rule Attributes{
+  from s: SimpleUML!Property (s.complexType.oclIsUndefined())
+  to t: ER!StrongReference(--ER!Attribute (															-- Mutation: out-pattern element class change
+  	name <- s.name
+     --type <- if s.primitiveType.oclIsUndefined() then 'NoType' else s.primitiveType endif		-- Mutation: binding deletion
+  ),
+	-- trace information
+	tl : TMM!TraceLink(
+		ruleName <- 'Attributes',
+		targetElements <- Sequence{t}
+	)
+  do {
+	-- trace information
+	tl.sourceElements <- Sequence{s};
+	thisModule.trace.traceLinks <- tl;
+  }
+}
+
+--abstract rule References extends Property{
+--  from s: SimpleUML!Property (not s.complexType.oclIsUndefined())
+--  to t: ER!Reference (
+--     type <- s.complexType 
+--  )
+--}
+
+--rule WeakReferences extends References{
+rule WeakReferences{
+  from s: SimpleUML!Property (not s.complexType.oclIsUndefined() and not s.isContainment)
+  to t: ER!WeakReference(
+  		name <- s.name,
+		type <- s.complexType
+	 ),
+	-- trace information
+	tl : TMM!TraceLink(
+		ruleName <- 'WeakReferences',
+		targetElements <- Sequence{t}
+	)
+  do {
+	-- trace information
+	tl.sourceElements <- Sequence{s};
+	thisModule.trace.traceLinks <- tl;
+  }
+}
+
+--rule StrongReferences extends References{
+rule StrongReferences{
+  from s: SimpleUML!Property (not s.complexType.oclIsUndefined() and s.isContainment)
+  to t: ER!StrongReference(
+  	    name <- s.name,
+		type <- s.complexType
+	 ),
+	-- trace information
+	tl : TMM!TraceLink(
+		ruleName <- 'StrongReferences',
+		targetElements <- Sequence{t}
+	)
+  do {
+	-- trace information
+	tl.sourceElements <- Sequence{s};
+	thisModule.trace.traceLinks <- tl;
+  }
+}
