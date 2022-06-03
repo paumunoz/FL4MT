@@ -2,10 +2,10 @@ package analysis.elements;
 
 import java.util.*;
 
-public class Rule {
-    private String name;
-    private Map<String, Double> analysisValues;
-    private boolean buggy;
+public class Rule implements Comparable<Rule>{
+    private final String name;
+    private final Map<String, Double> analysisValues;
+    private final boolean buggy;
 
     public Rule(String name, List<String> analysisValues, String[] headers){
         this.analysisValues = new HashMap<>();
@@ -24,7 +24,7 @@ public class Rule {
         return buggy;
     }
 
-    public boolean duplicateRule(Rule r){
+    public boolean isDuplicate(Rule r){
         boolean duplicate = true;
         for(String key : this.getAnalysisValues().keySet()){
             // 1. We do not take into account the static values to determine if a row is duplicated
@@ -53,5 +53,10 @@ public class Rule {
     @Override
     public int hashCode() {
         return Objects.hash(name, analysisValues, buggy);
+    }
+
+    @Override
+    public int compareTo(Rule o) {
+        return this.getName().compareTo(o.getName());
     }
 }

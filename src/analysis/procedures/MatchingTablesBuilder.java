@@ -28,6 +28,15 @@ import transformations.MergeUseMM;
 import java.io.*;
 import java.util.*;
 
+/***
+ * Modified file from the original work:
+ * Burgueño, L., Troya, J., Wimmer, M., & Vallecillo, A. (2015).
+ * Static Fault Localization in Model Transformations. IEEE
+ * Transactions on Software Engineering, 490–506
+ *
+ * Available at: <a href="https://atenea.lcc.uma.es/projects/MTB/MTB.html">...</a>
+ */
+
 public class MatchingTablesBuilder {
     List<List<String>> constraintElements;
     List<List<String>> ruleElements;

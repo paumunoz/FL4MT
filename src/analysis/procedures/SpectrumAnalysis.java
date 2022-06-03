@@ -13,6 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/***
+ * It parses the information from the output .csv files from the original work:
+ * Troya, J., Segura, S., Parejo, J., & Ruiz-Cortés, A. (2018).
+ * Spectrum-based fault localization in model transformations.
+ * ACM Transactions on Software Engineering and Methodology, 1–50.
+ *
+ * The tool to generate such files and the original input files are available at:
+ * <a href="https://github.com/javitroya/SBFL_MT">...</a>
+ */
+
 public class SpectrumAnalysis {
 
     // HEADERS
@@ -40,12 +50,13 @@ public class SpectrumAnalysis {
 
         // 2. Process each mutant file
         for (String mutantFilename : mutantFiles) {
-            //System.out.println("Analysing file " + mutantFilename);
+            // 2a. Parse the .csv file
             List<String[]> mutantCSV = CSVUtil.readAll(c.getMutantsPath() + mutantFilename, ';');
 
             String mutantName = mutantFilename.substring(mutantFilename.indexOf('_') + 1, mutantFilename.indexOf(
                     "--OCL"));
-            // 2a. Create the mutant object checking if it was previously created
+
+            // 2b. Create the mutant object checking if it was previously created
             Mutant mutant = new Mutant(mutantName);
             if (!result.contains(mutant)) {
                 result.add(mutant);
@@ -53,15 +64,12 @@ public class SpectrumAnalysis {
                 mutant = result.get(result.indexOf(mutant));
             }
 
-            List<String> rules = SpectrumParser.getRules(c.getRulesFootprintPath() + c.getCaseStudy() +
-                    "_Static_Rules_" + mutantName + ".csv");
-
             int headersRow = SpectrumParser.getHeadersRow(mutantCSV, SPECTRUM_HEADERS[0]);
             int lastRuleRow = SpectrumParser.getNumberOfRules(mutantCSV, headersRow);
             List<Integer> selectedColumns = SpectrumParser.getSelectedColumnsByHeader(mutantCSV, SPECTRUM_HEADERS);
             int constraintId = SpectrumParser.getConstraintId(CONSTRAINT_NAME, mutantFilename);
 
-            // 2b. Create the constraint object checking if it was previously stored
+            // 2c. Create the constraint object checking if it was previously stored
             Constraint constraint = new Constraint(CONSTRAINT_NAME + constraintId, mutantCSV.get(headersRow - 2)[2]);
             if (!mutant.getAppliedConstraints().contains(constraint)) {
                 mutant.addConstraint(constraint);
@@ -69,18 +77,18 @@ public class SpectrumAnalysis {
                 constraint = mutant.getAppliedConstraints().get(mutant.getAppliedConstraints().indexOf(constraint));
             }
 
-            // 2a. Analyse each line  in the csv mutant file
+            // 2d. Analyse each line  in the csv mutant file
             for (int i = headersRow + 1; i < lastRuleRow; i++) {
                 String[] row = mutantCSV.get(i);
                 List<String> rowOutput = new ArrayList<>();
 
-                // 2a. Get the rule id of the row (it is always located in column 1)
+                // 2d1. Get the rule id of the row (it is always located in column 1)
                 String ruleId = row[1];
 
-                // 2a1. Add the index to the new row.
+                // 2d2. Add the index to the new row.
                 rowOutput.add(Integer.toString(index));
 
-                // 2a2. Add the selected columns to the row
+                // 2d3. Add the selected columns to the row
                 for (int j : selectedColumns) {
                     if (j == 0) {
                         rowOutput.add(row[j].isEmpty() ? "0" : "1");
@@ -89,7 +97,10 @@ public class SpectrumAnalysis {
                     }
                 }
 
-                // 2a3. Add the corresponding value from the MatchingTable
+                List<String> rules = SpectrumParser.getRules(c.getRulesFootprintPath() + c.getCaseStudy() +
+                        "_Static_Rules_" + mutantName + ".csv");
+
+                // 2d4. Add the corresponding value from the MatchingTable
                 for (String metric : STATIC_HEADERS) {
                     int ruleIndex = rules.indexOf(ruleId);
                     String matchingValue =
@@ -100,12 +111,13 @@ public class SpectrumAnalysis {
                 rowOutput.add(ruleId);
                 rowOutput.add(mutantName);
 
-                // 2a1. Create the rule object
+                // 2d5. Create the rule object
                 Rule rule = new Rule(ruleId, rowOutput.subList(1,
                         SPECTRUM_HEADERS.length + STATIC_HEADERS.length + 1), SpectrumParser.getRow(SPECTRUM_HEADERS,
                         STATIC_HEADERS));
                 constraint.addRule(rule);
 
+                // 2d6. Print all the information to an output file for easier analysis
                 outputFile.add(rowOutput.toArray(new String[0]));
             }
 
@@ -113,7 +125,7 @@ public class SpectrumAnalysis {
         }
         String pathCSVFolder = c.getOutputSpectrumPath() + outputFolder;
         boolean res = new File(pathCSVFolder).mkdirs();
-        CSVUtil.writeAll(outputFile, pathCSVFolder + "/" + "UML2ER_Data.csv");
+        CSVUtil.writeAll(outputFile, pathCSVFolder + "/" + "SBFL_UML2ER_Data.csv");
         return result;
     }
 }
