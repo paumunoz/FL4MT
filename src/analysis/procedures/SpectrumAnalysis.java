@@ -50,6 +50,7 @@ public class SpectrumAnalysis {
 
         // 2. Process each mutant file
         for (String mutantFilename : mutantFiles) {
+            System.out.println(mutantFilename);
             // 2a. Parse the .csv file
             List<String[]> mutantCSV = CSVUtil.readAll(c.getMutantsPath() + mutantFilename, ';');
 

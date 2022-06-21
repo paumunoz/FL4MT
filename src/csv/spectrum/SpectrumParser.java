@@ -39,7 +39,7 @@ public class SpectrumParser {
 
     protected static int getColumnCoordinate(List<String[]> rows, String match, int row) {
         for (int i = 0; i < rows.get(row).length; i++) {
-            if (rows.get(row)[i].startsWith(match)) {
+            if (rows.get(row)[i].equals(match)) {
                 return i;
             }
         }
